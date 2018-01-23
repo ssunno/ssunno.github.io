@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://pbs.twimg.com/media/CaOodS7WAAA-TLH.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*R2Efhfe3zChnRcavAspQbA.png">
 <meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png">
-<meta property="og:updated_time" content="2018-01-23T16:44:46.217Z">
+<meta property="og:updated_time" content="2018-01-23T16:48:02.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Character-Aware Bug Triage">
 <meta name="twitter:description" content="문자 기반의 Bug Triage 최신 코드 리뷰. 이전 버전의 Bug Triager 기본 모델: Convolutional Neural Network for Sentence Classification(Yoon Kim, 2014)   전처리로 워드 임베딩(Word2Vec)을 사용함.  width= [3, 4, 5]인 필터를 각각 512개씩  사용 -&amp;gt; 총">
@@ -162,10 +162,12 @@
 <li>Word2Vec과 달리 모델이 학습되면서 함께 업데이트됨</li>
 </ul>
 </li>
-<li>Term-Delayed Neural Network(TDNN):<ul>
+<li><p>Term-Delayed Neural Network(TDNN):</p>
+<ul>
 <li>이전 버전 Bug Triager에서의 CNN 모듈과 같은 기능</li>
 <li>논문에서는 width = [1, 2, 3, 4, 5, 6, 7], filter = [50, 100, 150, 200, 200, 200], 총 1,100개의 필터를 사용</li>
-<li>implementation:<script src="//gist.github.com/ef29b19d715bb708ba3b403e8497227e.js"></script></li>
+<li>implementation:<script src="//gist.github.com/ef29b19d715bb708ba3b403e8497227e.js"></script>
+</li>
 </ul>
 </li>
 <li><p>Highway Network:<br> <img src="https://cdn-images-1.medium.com/max/1600/1*R2Efhfe3zChnRcavAspQbA.png" alt="highway"></p>
@@ -174,7 +176,7 @@
 </li>
 </ul>
 </li>
-<li><p>Long-Short Term Memory(LSTM):<br><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png" alt=""></p>
+<li><p>Long-Short Term Memory(LSTM):<br><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png" alt="lstm"></p>
 </li>
 </ul>
 <hr>
