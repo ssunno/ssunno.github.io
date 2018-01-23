@@ -14,7 +14,9 @@
 <meta property="og:description" content="문자 기반의 Bug Triage 최신 코드 리뷰. 이전 버전의 Bug Triager 기본 모델: Convolutional Neural Network for Sentence Classification(Yoon Kim, 2014)   전처리로 워드 임베딩(Word2Vec)을 사용함.  width= [3, 4, 5]인 필터를 각각 512개씩  사용 -&amp;gt; 총">
 <meta property="og:image" content="http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/11/Screen-Shot-2015-11-06-at-8.03.47-AM-1024x413.png">
 <meta property="og:image" content="https://pbs.twimg.com/media/CaOodS7WAAA-TLH.png">
-<meta property="og:updated_time" content="2018-01-23T15:14:01.162Z">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*R2Efhfe3zChnRcavAspQbA.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png">
+<meta property="og:updated_time" content="2018-01-23T16:44:46.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Character-Aware Bug Triage">
 <meta name="twitter:description" content="문자 기반의 Bug Triage 최신 코드 리뷰. 이전 버전의 Bug Triager 기본 모델: Convolutional Neural Network for Sentence Classification(Yoon Kim, 2014)   전처리로 워드 임베딩(Word2Vec)을 사용함.  width= [3, 4, 5]인 필터를 각각 512개씩  사용 -&amp;gt; 총">
@@ -163,7 +165,46 @@
 <li>Term-Delayed Neural Network(TDNN):<ul>
 <li>이전 버전 Bug Triager에서의 CNN 모듈과 같은 기능</li>
 <li>논문에서는 width = [1, 2, 3, 4, 5, 6, 7], filter = [50, 100, 150, 200, 200, 200], 총 1,100개의 필터를 사용</li>
-<li>implementation:<br><script src="//gist.github.com/ef29b19d715bb708ba3b403e8497227e.js?file=}</li>"></script></li></ul></li></ul></li></ol>
+<li>implementation:<script src="//gist.github.com/ef29b19d715bb708ba3b403e8497227e.js"></script></li>
+</ul>
+</li>
+<li><p>Highway Network:<br> <img src="https://cdn-images-1.medium.com/max/1600/1*R2Efhfe3zChnRcavAspQbA.png" alt="highway"></p>
+<ul>
+<li>implementation:<script src="//gist.github.com/cf20cbf3f36e6515d6f097058fe8224d.js"></script>
+</li>
+</ul>
+</li>
+<li><p>Long-Short Term Memory(LSTM):<br><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png" alt=""></p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>변경된 점:</p>
+<ul>
+<li><p>LSTM의 마지막 output 뒤에 Fully-Connected Layer를 추가, Classification 모델로 변경함</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">with tf.variable_scope(&apos;LSTM&apos;):</span><br><span class="line">    cell = tf.contrib.rnn.MultiRNNCell([self.__create_rnn_cell(FLAGS.rnn_size) for _ in range(FLAGS.rnn_layers)]</span><br><span class="line">                                 , state_is_tuple=True)</span><br><span class="line">    cell = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=self.dropout_keep_prob)</span><br><span class="line">    outputs, final_state = tf.contrib.rnn.static_rnn(cell, words, dtype=tf.float32)</span><br><span class="line">with tf.variable_scope(&apos;FC&apos;):</span><br><span class="line">    weight = tf.get_variable(&apos;weight&apos;, [FLAGS.rnn_size, FLAGS.num_classes], initializer=tf.contrib.layers.xavier_initializer())</span><br><span class="line">    bias = tf.get_variable(&apos;bias&apos;, [FLAGS.num_classes], initializer=tf.contrib.layers.xavier_initializer())</span><br><span class="line">    logits = tf.nn.xw_plus_b(outputs[-1], weight, bias)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>버그리포트를 학습하도록 전처리 모듈 추가</p>
+</li>
+<li>버그리포트에는 자연어 문장에 사용되지 않는 다양한 특수 문자가 포함되기 때문에, 단어 단위로 split(기존)하는 것이 아니라 N개의 문자 단위로 slice함.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sentence = &quot;a2b3c4d 5e6f7g8h&quot;</span><br><span class="line"># slice length : 3</span><br><span class="line">sliced = [&quot;a2b&quot;, &quot;3c4&quot;, &quot;d 5&quot;, &quot;e6f&quot;, &quot;7g8&quot;, &quot;h&lt;PAD&gt;&lt;PAD&gt;&quot;]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>How to Use:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/ssunno/character-aware-neural-language-models.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Parameter list:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 train.py -h</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Test in GPU Server:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># access using SSH:</span><br><span class="line">Address : 165.194.104.87</span><br><span class="line">Port : 8788</span><br><span class="line">ID : sun</span><br><span class="line">PW : ssunno</span><br><span class="line"># Project directory:</span><br><span class="line">cd Desktop/character-aware-neural-language_models</span><br><span class="line"># set invironment variables for using 1 gpu (this code not support multi-GPU):</span><br><span class="line">export CUDA_VISIBLE_DEVICES=0 or 1</span><br><span class="line"># execute training</span><br><span class="line">python3 train.py --data_dir &quot;data directory&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
       
     </div>
     <footer class="article-footer">
