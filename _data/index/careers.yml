@@ -1,0 +1,6 @@
+# careers section data
+# if you don't have language feature(language.yml is empty), ignore "i18n" items
+- name: TmaxData
+  link: https://www.tmaxdata.com/
+  date: Feb 2018 - <i class="fa fa-clock-o" aria-hidden="true" title="Until Now"></i>
+  job: Computer Vision & AI Researcher
