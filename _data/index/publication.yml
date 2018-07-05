@@ -9,7 +9,7 @@
 - name: "딥러닝을 이용한 버그 담당자 자동 배정 연구"
   descr: "정보과학회논문지, Nov 2017"
   website: http://www.kiise.or.kr/academy/board/publishList2.fa?MENU_ID=060500
-
+  
 - name: Deep Learning based real-time query processing for wireless network
   descr: "International Journal of Distributed Sensor Networks(IJDSN), Apr 2017"
   website: http://journals.sagepub.com/doi/abs/10.1177/1550147717707896?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BwwAJTAGASly9KBfdDM4voA%3D%3D
@@ -17,4 +17,3 @@
 - name: T-L Plane Abstraction-Based Energy-Efficient Real-Time Scheduling for Multi-Core Wireless Sensors
   descr: "Sensors, Jul 2016"
   website: http://www.mdpi.com/1424-8220/16/7/1054/htm?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BwwAJTAGASly9KBfdDM4voA%3D%3D
-  
