@@ -17,7 +17,7 @@ keywords: ["ssunno"]
 timezone:          Asia/Seoul
 markdown:          kramdown
 highlighter:       rouge
-excerpt_separator: <!--more-->
+excerpt_separator: "<!-- more -->"
 permalink:         /articles/:year-:month/:title
 
 kramdown:
@@ -34,7 +34,7 @@ kramdown:
 #
 owner:
   name: ssunno
-  avatar: leonids-logo.png
+  avatar: 8bit.png
   job: "Researcher"
   bio: "Software engineering & Computer Vision using Deep Learning."
   email: lsn3192@gmail.com

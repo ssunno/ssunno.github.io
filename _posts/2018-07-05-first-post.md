@@ -1,15 +1,14 @@
 ---
 layout: post
-title: Sample Post
-excerpt: "Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more."
-categories: [hello world]
-comments: true
-image:
-  feature: https://images.unsplash.com/photo-1440635592348-167b1b30296f?crop=entropy&dpr=2&fit=crop&fm=jpg&h=475&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1250
-  credit: thomas shellberg
-  creditlink: https://unsplash.com/photos/Ki0dpxd3LGc
+title: 첫 번째 포스트
+categories: [Others]
+comments: False
+tags: ["Test", "Hello"]
 ---
 
+첫 번째 포스트는 테스트를 위한것 !
+
+<!-- more -->
 ## HTML Elements
 
 Below is just about everything you'll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.
