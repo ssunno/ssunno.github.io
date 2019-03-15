@@ -6,7 +6,7 @@ comments: False
 tags: ["Test", "Hello"]
 ---
 
-첫 번째 포스트는 테스트를 위한것 !
+첫 번째 포스트
 
 <!-- more -->
 ## HTML Elements
